@@ -1,0 +1,12 @@
+# robots.txt for jonsjobspace.jonsjobblog.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://jonsjobspace.jonsjobblog.com/sitemap.xml
+
+# Allow search engines to crawl all content
+Crawl-delay: 0
+
+# Disallow nothing - we want full visibility

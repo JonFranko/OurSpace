@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jon's Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 12px;
+            background: #102947 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23102947" width="100" height="100"/><circle cx="50" cy="50" r="40" fill="%231a3a5c" opacity="0.1"/></svg>');
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* Header Navigation */
+        .header {
+            background: linear-gradient(180deg, #6699cc 0%, #336699 100%);
+            padding: 8px 15px;
+            color: white;
+            border-bottom: 3px solid #003366;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            flex-wrap: wrap;
+        }
+
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .header-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Profile Banner */
+        .profile-banner {
+            background: linear-gradient(180deg, #ffffff 0%, #e8f0f8 100%);
+            padding: 15px 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .profile-banner h1 {
+            font-size: 18px;
+            color: #336699;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-tagline {
+            font-size: 11px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Main Layout */
+        .main-content {
+            display: flex;
+            padding: 15px;
+            gap: 15px;
+        }
+
+        .left-column {
+            width: 300px;
+            flex-shrink: 0;
+        }
+
+        .right-column {
+            flex: 1;
+        }
+
+        /* Profile Box */
+        .profile-box {
+            background: linear-gradient(180deg, #6699cc 0%, #336699 100%);
+            border: 2px solid #003366;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .profile-box-header {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 10px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .profile-box-content {
+            background: white;
+            padding: 12px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c30 50%, #2d5016 100%);
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .profile-stats {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 11px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: bold;
+            color: #336699;
+        }
+
+        /* Content Sections */
+        .content-box {
+            background: white;
+            border: 2px solid #336699;
+            margin-bottom: 15px;
+        }
+
+        .content-box-header {
+            background: linear-gradient(180deg, #6699cc 0%, #336699 100%);
+            padding: 8px 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .content-box-body {
+            padding: 12px;
+            background: #f9f9f9;
+        }
+
+        /* Interests Section */
+        .interests-list {
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .interest-category {
+            margin-bottom: 10px;
+        }
+
+        .interest-category strong {
+            color: #336699;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        /* Experience Items */
+        .experience-item {
+            background: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+
+        .experience-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #336699;
+            margin-bottom: 3px;
+        }
+
+        .experience-company {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+
+        .experience-desc {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            font-size: 11px;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            color: #336699;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .contact-btn {
+            padding: 6px 12px;
+            background: linear-gradient(180deg, #6699cc 0%, #336699 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+
+        .contact-btn:hover {
+            background: linear-gradient(180deg, #7799dd 0%, #447799 100%);
+        }
+
+        /* Comments/Testimonials */
+        .comment {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .comment-meta {
+            flex: 1;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #336699;
+            font-size: 11px;
+        }
+
+        .comment-body {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #333;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f0f0f0;
+            padding: 15px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            border-top: 1px solid #ccc;
+        }
+
+        .footer a {
+            color: #336699;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Online Now Indicator */
+        .online-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* View Counter */
+        .view-counter {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            padding: 4px 8px;
+            display: inline-block;
+            border: 2px solid #333;
+            margin-top: 10px;
+            font-size: 11px;
+        }
+
+        /* Mood */
+        .mood {
+            background: #fffacd;
+            border: 1px solid #f0e68c;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .mood-label {
+            font-weight: bold;
+            color: #336699;
+        }
+
+        /* Top 8 */
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .friend-item {
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .friend-pic {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c30 100%);
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .friend-name {
+            font-weight: bold;
+            color: #336699;
+            font-size: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .left-column {
+                width: 100%;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Navigation -->
+        <div class="header">
+            <div class="header-nav">
+                <a href="#home">Home</a>
+                <a href="#browse">Browse</a>
+                <a href="#search">Search</a>
+                <a href="#mail">Mail</a>
+                <a href="#blog">Blog</a>
+                <a href="#favorites">Favorites</a>
+                <a href="#music">Music</a>
+            </div>
+        </div>
+
+        <!-- Profile Banner -->
+        <div class="profile-banner">
+            <h1><span class="online-indicator"></span>Jon(athan) Franko</h1>
+            <p class="profile-tagline">"Connecting strategy, technology, and storytelling to protect and beautify the earth" — Pittsburgh, PA</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Profile Picture Box -->
+                <div class="profile-box">
+                    <div class="profile-box-header">Jon</div>
+                    <div class="profile-box-content">
+                        <div class="profile-pic">🌲</div>
+                        
+                        <div class="mood">
+                            <span class="mood-label">Current Status:</span> Building, consulting, and giving back
+                        </div>
+                        
+                        <div class="view-counter">
+                            Profile Views: 002,347
+                        </div>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Last Login:</span>
+                                <span>Today</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Location:</span>
+                                <span>Pittsburgh, PA</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Role:</span>
+                                <span>Senior Business Analyst</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-buttons">
+                            <a href="https://doubletreeindustries.com" class="contact-btn" target="_blank">Visit DTI</a>
+                            <a href="https://jonsjobblog.com" class="contact-btn" target="_blank">Read Blog</a>
+                            <a href="https://docs.doubletreeindustries.com/JonFrankoResume.pdf" class="contact-btn" target="_blank">Resume</a>
+                            <a href="mailto:JonFranko11@gmail.com" class="contact-btn">Send Message</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interests -->
+                <div class="profile-box">
+                    <div class="profile-box-header">Jon's Interests</div>
+                    <div class="profile-box-content">
+                        <div class="interests-list">
+                            <div class="interest-category">
+                                <strong>General:</strong>
+                                Forestry, Conservation, Process Automation, Data Analytics, Digital Storytelling
+                            </div>
+                            <div class="interest-category">
+                                <strong>Professional:</strong>
+                                Enterprise transformation, Power BI, Product leadership, Agile methodologies
+                            </div>
+                            <div class="interest-category">
+                                <strong>Volunteer Work:</strong>
+                                Western PA Conservancy (Social Media Chair), United Way SWPA (Next Gen Committee)
+                            </div>
+                            <div class="interest-category">
+                                <strong>Education:</strong>
+                                MBA (Kent State), B.S. Forestry (OSU), Lean Six Sigma Green Belt, Manufacturing & Digital Fundamentals
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top 8 -->
+                <div class="profile-box">
+                    <div class="profile-box-header">Jon's Top 8 Companies</div>
+                    <div class="profile-box-content">
+                        <div class="friends-grid">
+                            <div class="friend-item">
+                                <div class="friend-pic">🏭</div>
+                                <div class="friend-name">PPG Industries</div>
+                            </div>
+                            <div class="friend-item">
+                                <div class="friend-pic">⚗️</div>
+                                <div class="friend-name">Messer LLC</div>
+                            </div>
+                            <div class="friend-item">
+                                <div class="friend-pic">🌲</div>
+                                <div class="friend-name">Clear Lake Lumber</div>
+                            </div>
+                            <div class="friend-item">
+                                <div class="friend-pic">🦅</div>
+                                <div class="friend-name">Giant Eagle</div>
+                            </div>
+                            <div class="friend-item">
+                                <div class="friend-pic">🌳</div>
+                                <div class="friend-name">WPA Conservancy</div>
+                            </div>
+                            <div class="friend-item">
+                                <div class="friend-pic">🤝</div>
+                                <div class="friend-name">United Way</div>
+                            </div>
+                            <div class="friend-item">
+                                <div class="friend-pic">🏫</div>
+                                <div class="friend-name">Kent State</div>
+                            </div>
+                            <div class="friend-item">
+                                <div class="friend-pic">🌰</div>
+                                <div class="friend-name">Ohio State</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- About Me -->
+                <div class="content-box">
+                    <div class="content-box-header">About Me</div>
+                    <div class="content-box-body">
+                        <p style="margin-bottom: 12px; line-height: 1.6;">
+                            My name is Jonathan, but if you've read this far you can call me Jon. I began my career in forestry, 
+                            learning how to balance sustainability, negotiation, and community impact. Later, I transitioned into 
+                            procurement and enterprise automation, where I led multi-million-dollar digital transformation projects 
+                            and mentored global teams.
+                        </p>
+                        <p style="margin-bottom: 12px; line-height: 1.6;">
+                            Today, through <strong>Double Tree Industries</strong>, I deliver a mix of consulting and personal 
+                            branding services to help businesses modernize their operations and professionals share their story 
+                            with clarity and impact.
+                        </p>
+                        <p style="line-height: 1.6; font-style: italic; color: #666;">
+                            Whether in forests, conference rooms, or digital landscapes, my work has always been about connecting 
+                            people to the tools, resources, and knowledge they need to thrive.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Professional Experience -->
+                <div class="content-box">
+                    <div class="content-box-header">Professional Experience</div>
+                    <div class="content-box-body">
+                        <div class="experience-item">
+                            <div class="experience-title">Business Analysis Specialist</div>
+                            <div class="experience-company">PPG Industries (2019-2024)</div>
+                            <div class="experience-desc">
+                                Led end-to-end product lifecycle strategy for 30+ automations, enabling $2.25M+ in annual value 
+                                and 45,000+ hours in time savings. Designed SQL-based data pipelines and Power BI dashboards, 
+                                reducing support incidents by 80%. Acted as product owner for a 15-member global Agile team 
+                                with 90% sprint completion rate.
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-title">Procurement Analyst</div>
+                            <div class="experience-company">Messer LLC (2018-2019)</div>
+                            <div class="experience-desc">
+                                Synthesized multi-source procurement data (SAP) into executive dashboards using Tableau to 
+                                improve visibility into financial exposure and support risk mitigation planning.
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-title">Timber Procurement & GIS Implementation</div>
+                            <div class="experience-company">Clear Lake Lumber (2014-2017)</div>
+                            <div class="experience-desc">
+                                Negotiated timber contracts up to $250,000 and led transition from paper to digital mapping 
+                                using ESRI GIS, modernizing forestry operations.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills & Tools -->
+                <div class="content-box">
+                    <div class="content-box-header">Skills & Tools</div>
+                    <div class="content-box-body">
+                        <div class="skills-grid">
+                            <div class="skill-item">Power BI</div>
+                            <div class="skill-item">SQL</div>
+                            <div class="skill-item">Tableau</div>
+                            <div class="skill-item">Python</div>
+                            <div class="skill-item">UiPath RPA</div>
+                            <div class="skill-item">SAP</div>
+                            <div class="skill-item">Oracle R12</div>
+                            <div class="skill-item">Azure DevOps</div>
+                            <div class="skill-item">JIRA & Confluence</div>
+                            <div class="skill-item">Agile & Waterfall</div>
+                            <div class="skill-item">Product Lifecycle Mgmt</div>
+                            <div class="skill-item">Change Management</div>
+                            <div class="skill-item">Business Process Design</div>
+                            <div class="skill-item">GIS & Geospatial Analysis</div>
+                            <div class="skill-item">Lean Six Sigma (DMAIC)</div>
+                            <div class="skill-item">Stakeholder Alignment</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonials -->
+                <div class="content-box">
+                    <div class="content-box-header">What Colleagues Say</div>
+                    <div class="content-box-body">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div class="comment-avatar">👔</div>
+                                <div class="comment-meta">
+                                    <div class="comment-author">Coworker</div>
+                                </div>
+                            </div>
+                            <div class="comment-body">
+                                "Jon is a well-rounded Business Analyst with an outstanding attitude, a strong grasp of 
+                                requirements, and a positive presence that any team would be fortunate to have."
+                            </div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div class="comment-avatar">💼</div>
+                                <div class="comment-meta">
+                                    <div class="comment-author">Coworker</div>
+                                </div>
+                            </div>
+                            <div class="comment-body">
+                                "His ability to engage with stakeholders across diverse domains—whether technical, operational, 
+                                or strategic—is truly impressive. He brings clarity and cohesion to complex projects."
+                            </div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div class="comment-avatar">⚡</div>
+                                <div class="comment-meta">
+                                    <div class="comment-author">Coworker</div>
+                                </div>
+                            </div>
+                            <div class="comment-body">
+                                "Jon brings positive energy and motivates every team he's on—a natural collaborator."
+                            </div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div class="comment-avatar">🎯</div>
+                                <div class="comment-meta">
+                                    <div class="comment-author">Coworker</div>
+                                </div>
+                            </div>
+                            <div class="comment-body">
+                                "Patient and clever, his deliverables gave us everything we needed to build reliable automations."
+                            </div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div class="comment-avatar">📊</div>
+                                <div class="comment-meta">
+                                    <div class="comment-author">Coworker</div>
+                                </div>
+                            </div>
+                            <div class="comment-body">
+                                "He makes complex processes simple and accessible for everyone."
+                            </div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div class="comment-avatar">✨</div>
+                                <div class="comment-meta">
+                                    <div class="comment-author">Early Customer</div>
+                                </div>
+                            </div>
+                            <div class="comment-body">
+                                "I wasn't expecting output this good—it's excellent work."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="content-box">
+                    <div class="content-box-header">Certifications & Training</div>
+                    <div class="content-box-body">
+                        <div class="experience-item">
+                            <div class="experience-title">Lean Six Sigma Yellow & Green Belt</div>
+                            <div class="experience-company">PPG Industries (2023)</div>
+                            <div class="experience-desc">
+                                80 hours of DMAIC project leadership training with capstone project focused on maintenance 
+                                incident reduction. Achieved 80% reduction of incidents.
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-title">Manufacturing & Digital Fundamentals (Levels 1 & 2)</div>
+                            <div class="experience-company">Digital Foundry at Penn State (2024-2025)</div>
+                            <div class="experience-desc">
+                                80 hours total focused on robotics, automation, MES, SCADA, PLCs, ERP integration, 
+                                and digital transformation leadership in smart manufacturing systems.
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-title">Machine Control Academy</div>
+                            <div class="experience-company">Digital Foundry at Penn State (2025)</div>
+                            <div class="experience-desc">
+                                Comprehensive training in PLC programming across Siemens, Rockwell Automation/Allen Bradley, 
+                                and Phoenix Contact platforms. Covered ladder logic, HMI systems, and automated machine control.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Volunteer Work -->
+                <div class="content-box">
+                    <div class="content-box-header">Giving Back - Volunteer Leadership</div>
+                    <div class="content-box-body">
+                        <div class="experience-item">
+                            <div class="experience-title">Social Media Chair</div>
+                            <div class="experience-company">Western Pennsylvania Conservancy - Emerging Leaders (2023-Present)</div>
+                            <div class="experience-desc">
+                                Lead digital engagement strategy driving 87% increase in social media engagement through 
+                                data-driven content strategy and community storytelling. Active in land stewardship projects, 
+                                urban reforestation, and native habitat restoration.
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-title">Next Gen Executive Committee</div>
+                            <div class="experience-company">United Way of Southwestern Pennsylvania (2022-Present)</div>
+                            <div class="experience-desc">
+                                Provide volunteer leadership supporting ALICE individuals (Asset Limited, Income Constrained, 
+                                Employed). Lead initiatives including book distributions, meal kit packing, youth bike assembly, 
+                                donor outreach, and grant review for digital equity. Completed Connect U Leadership Development 
+                                Program (2024).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2025 Jon Franko Portfolio | 
+            <a href="https://doubletreeindustries.com" target="_blank">Double Tree Industries</a> | 
+            <a href="https://jonsjobblog.com" target="_blank">Jon's Job Blog</a> | 
+            <a href="mailto:JonFranko11@gmail.com">Contact</a></p>
+            <p style="margin-top: 8px; font-style: italic;">
+                Built with nostalgia for a simpler internet 🌐✨
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Animate view counter on page load
+        let viewCount = 0;
+        const targetCount = 2347;
+        const counterElement = document.querySelector('.view-counter');
+        
+        const animateCounter = () => {
+            if (viewCount < targetCount) {
+                viewCount += 23;
+                if (viewCount > targetCount) viewCount = targetCount;
+                const formatted = String(viewCount).padStart(7, '0');
+                counterElement.textContent = `Profile Views: ${formatted.slice(0, 3)},${formatted.slice(3)}`;
+                requestAnimationFrame(animateCounter);
+            }
+        };
+        
+        window.addEventListener('load', () => {
+            setTimeout(animateCounter, 500);
+        });
+    </script>
+</body>
+</html>
