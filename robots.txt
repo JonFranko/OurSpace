@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jonsjobspace.jonsjobblog.com/sitemap.xml
